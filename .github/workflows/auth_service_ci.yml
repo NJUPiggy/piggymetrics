@@ -18,7 +18,7 @@ jobs:
     - name: Build & Push Docker Image
       uses: elgohr/Publish-Docker-Github-Action@2.8
       with:
-        name: shenmiu/piggymetrics-config:latest
+        name: shenmiu/piggymetrics-auth-service:latest
         registry: registry.cn-hangzhou.aliyuncs.com
         username: ${{secrets.Ali_USER}}
         password: ${{secrets.Ali_PWD}}
