@@ -1,0 +1,51 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn package -DskipTests
+    - name: Build & Push Docker Image
+      env:
+        Ali_REGISTRY: registry.cn-hangzhou.aliyuncs.com
+        NAMESPACE: shenmiu
+      uses: azure/docker-login@v1
+      with:
+        login-server: $Ali_REGISTRY
+        username: ${{secrets.Ali_USER}}
+        password: ${{secrets.Ali_PWD}}
+    - run: |
+        # config service
+        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-config:latest ./config
+        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-config:latest
+        # registry
+        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-registry:latest ./registry
+        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-registry:latest
+        # gateway
+        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-gateway:latest ./gateway
+        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-gateway:latest
+        # auth service
+        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-auth-service:latest ./auth-service
+        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-auth-service:latest
+        # account service
+        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-account-service:latest ./account-service
+        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-account-service:latest
+        # statistics service
+        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-statistics-service:latest ./config
+        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-statistics-service:latest
+        # notification service
+        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-notification-service:latest ./config
+        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-notification-service:latest
+        # mongodb
+        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-mongodb:latest ./config
+        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-mongodb:latest
