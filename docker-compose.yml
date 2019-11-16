@@ -5,6 +5,7 @@ services:
     restart: always
     ports:
       - 15672:15672
+      - 5672:5672
     logging:
       options:
         max-size: "10m"
@@ -13,8 +14,10 @@ services:
   config:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: shenmiu/piggymetrics-config
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-config
     restart: always
+    ports:
+      - 8888:8888
     logging:
       options:
         max-size: "10m"
@@ -23,7 +26,7 @@ services:
   registry:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: shenmiu/piggymetrics-registry
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-registry
     restart: always
     depends_on:
       config:
@@ -38,7 +41,7 @@ services:
   gateway:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: shenmiu/piggymetrics-gateway
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-gateway
     restart: always
     depends_on:
       config:
@@ -57,8 +60,10 @@ services:
       STATISTICS_SERVICE_PASSWORD: $STATISTICS_SERVICE_PASSWORD
       ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
       MONGODB_PASSWORD: $MONGODB_PASSWORD
-    image: shenmiu/piggymetrics-auth-service
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-auth-service
     restart: always
+    ports:
+      - 5000:5000
     depends_on:
       config:
         condition: service_healthy
@@ -70,8 +75,10 @@ services:
   auth-mongodb:
     environment:
       MONGODB_PASSWORD: $MONGODB_PASSWORD
-    image: shenmiu/piggymetrics-mongodb
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-mongodb
     restart: always
+    ports:
+      - 25000:27017
     logging:
       options:
         max-size: "10m"
@@ -82,8 +89,10 @@ services:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
       MONGODB_PASSWORD: $MONGODB_PASSWORD
-    image: shenmiu/piggymetrics-account-service
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-account-service
     restart: always
+    ports:
+      - 6000:6000
     depends_on:
       config:
         condition: service_healthy
@@ -96,8 +105,10 @@ services:
     environment:
       INIT_DUMP: account-service-dump.js
       MONGODB_PASSWORD: $MONGODB_PASSWORD
-    image: shenmiu/piggymetrics-mongodb
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-mongodb
     restart: always
+    ports:
+      - 26000:27017
     logging:
       options:
         max-size: "10m"
@@ -108,8 +119,10 @@ services:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       MONGODB_PASSWORD: $MONGODB_PASSWORD
       STATISTICS_SERVICE_PASSWORD: $STATISTICS_SERVICE_PASSWORD
-    image: shenmiu/piggymetrics-statistics-service
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-statistics-service
     restart: always
+    ports:
+      - 7000:7000
     depends_on:
       config:
         condition: service_healthy
@@ -121,8 +134,10 @@ services:
   statistics-mongodb:
     environment:
       MONGODB_PASSWORD: $MONGODB_PASSWORD
-    image: shenmiu/piggymetrics-mongodb
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-mongodb
     restart: always
+    ports:
+      - 27000:27017
     logging:
       options:
         max-size: "10m"
@@ -133,8 +148,10 @@ services:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       MONGODB_PASSWORD: $MONGODB_PASSWORD
       NOTIFICATION_SERVICE_PASSWORD: $NOTIFICATION_SERVICE_PASSWORD
-    image: shenmiu/piggymetrics-notification-service
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-notification-service
     restart: always
+    ports:
+      - 8000:8000
     depends_on:
       config:
         condition: service_healthy
@@ -144,8 +161,10 @@ services:
         max-file: "10"
 
   notification-mongodb:
-    image: shenmiu/piggymetrics-mongodb
+    image: registry.cn-hangzhou.aliyuncs.com/shenmiu/piggymetrics-mongodb
     restart: always
+    ports:
+      - 28000:27017
     environment:
       MONGODB_PASSWORD: $MONGODB_PASSWORD
     logging:
