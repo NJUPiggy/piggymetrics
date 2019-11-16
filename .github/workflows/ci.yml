@@ -16,36 +16,10 @@ jobs:
     - name: Build with Maven
       run: mvn package -DskipTests
     - name: Build & Push Docker Image
-      env:
-        Ali_REGISTRY: registry.cn-hangzhou.aliyuncs.com
-        NAMESPACE: shenmiu
-      uses: azure/docker-login@v1
+      uses: elgohr/Publish-Docker-Github-Action@2.8
       with:
-        login-server: $Ali_REGISTRY
+        name: shenmiu/piggymetrics-config:latest
+        registry: registry.cn-hangzhou.aliyuncs.com
         username: ${{secrets.Ali_USER}}
         password: ${{secrets.Ali_PWD}}
-    - run: |
-        # config service
-        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-config:latest ./config
-        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-config:latest
-        # registry
-        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-registry:latest ./registry
-        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-registry:latest
-        # gateway
-        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-gateway:latest ./gateway
-        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-gateway:latest
-        # auth service
-        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-auth-service:latest ./auth-service
-        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-auth-service:latest
-        # account service
-        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-account-service:latest ./account-service
-        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-account-service:latest
-        # statistics service
-        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-statistics-service:latest ./config
-        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-statistics-service:latest
-        # notification service
-        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-notification-service:latest ./config
-        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-notification-service:latest
-        # mongodb
-        docker build -t $Ali_REGISTRY/$NAMESPACE/piggymetrics-mongodb:latest ./config
-        docker push $Ali_REGISTRY/$NAMESPACE/piggymetrics-mongodb:latest
+        workdir: ./config
