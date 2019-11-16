@@ -1,6 +1,9 @@
 name: Gateway CI
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'gateway/**'
 
 jobs:
   build:

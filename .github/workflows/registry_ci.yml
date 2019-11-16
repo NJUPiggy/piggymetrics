@@ -1,6 +1,9 @@
 name: Registry CI
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'registry/**'
 
 jobs:
   build:

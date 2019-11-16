@@ -1,6 +1,9 @@
 name: Auth Service CI
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'auth-service/**'
 
 jobs:
   build:

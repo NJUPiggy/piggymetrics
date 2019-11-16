@@ -1,6 +1,9 @@
 name: Account Service CI
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'account-service/**'
 
 jobs:
   build:

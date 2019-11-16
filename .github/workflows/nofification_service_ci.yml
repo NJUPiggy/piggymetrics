@@ -1,6 +1,9 @@
 name: Notification Service CI
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'notification-service/**'
 
 jobs:
   build:

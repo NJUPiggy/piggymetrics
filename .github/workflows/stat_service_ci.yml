@@ -1,6 +1,9 @@
 name: Statistics Service CI
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'statistics-service/**'
 
 jobs:
   build:

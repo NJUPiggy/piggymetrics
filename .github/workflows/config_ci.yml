@@ -1,6 +1,9 @@
 name: Config Service CI
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'config/**'
 
 jobs:
   build:
