@@ -17,12 +17,9 @@ jobs:
       run: mvn package -DskipTests
     - name: Build & Push Docker Image
       uses: elgohr/Publish-Docker-Github-Action@2.8
-      env:
-        Ali_REGISTRY: registry.cn-hangzhou.aliyuncs.com
-        NAMESPACE: shenmiu
       with:
-        name: $Ali_REGISTRY/$NAMESPACE/piggymetrics-config:latest
-        registry: $Ali_REGISTRY
+        name: shenmiu/piggymetrics-config:latest
+        registry: registry.cn-hangzhou.aliyuncs.com
         username: ${{secrets.Ali_USER}}
         password: ${{secrets.Ali_PWD}}
         workdir: ./config
