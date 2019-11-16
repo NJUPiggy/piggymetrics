@@ -5,6 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      Ali_REGISTRY: registry.cn-hangzhou.aliyuncs.com
+      NAMESPACE: shenmiu
     steps:
     - uses: actions/checkout@v1
       with:
@@ -15,10 +18,7 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn package -DskipTests
-    - name: Build & Push Docker Image
-      env:
-        Ali_REGISTRY: registry.cn-hangzhou.aliyuncs.com
-        NAMESPACE: shenmiu
+    - name: Build & Push Docker Image        
       uses: azure/docker-login@v1
       with:
         login-server: $Ali_REGISTRY
