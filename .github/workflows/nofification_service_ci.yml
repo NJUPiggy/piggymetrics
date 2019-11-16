@@ -1,4 +1,4 @@
-name: Java CI
+name: Notification Service CI
 
 on: [push]
 
