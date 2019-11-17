@@ -1,6 +1,12 @@
-FROM openjdk:8-jre-alpine
+FROM registry.cn-hangzhou.aliyuncs.com/shenmiu/8-jre-alpine-sw-agent:latest
 
 ADD ./target/account-service.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/account-service.jar"]
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone
+
+ENTRYPOINT java -Xmx200m -javaagent:/app/agent/skywalking-agent.jar \
+-Dskywalking.collector.backend_service=${SW_URL} \
+-Dskywalking.agent.service_name=${SW_SVC_NAME} -jar /app/account-service.jar
 
 EXPOSE 6000
