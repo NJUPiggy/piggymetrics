@@ -1,4 +1,4 @@
-version: '3.7'
+version: '2.4'
 services:
   # piggymetrics
   rabbitmq:
@@ -39,7 +39,8 @@ services:
     container_name: registry
     restart: always
     depends_on:
-      - config
+      config:
+        condition: service_healthy
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       SW_SVC_NAME: registry
@@ -60,7 +61,8 @@ services:
     container_name: gateway
     restart: always
     depends_on:
-      - config
+      config:
+        condition: service_healthy
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       SW_SVC_NAME: gateway
@@ -81,7 +83,8 @@ services:
     container_name: auth-service
     restart: always
     depends_on:
-      - config
+      config:
+        condition: service_healthy
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       NOTIFICATION_SERVICE_PASSWORD: $NOTIFICATION_SERVICE_PASSWORD
@@ -124,7 +127,8 @@ services:
     container_name: account-service
     restart: always
     depends_on:
-      - config
+      config:
+        condition: service_healthy
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
@@ -166,7 +170,8 @@ services:
     container_name: statistics-service
     restart: always
     depends_on:
-      - config
+      config:
+        condition: service_healthy
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       MONGODB_PASSWORD: $MONGODB_PASSWORD
@@ -207,7 +212,8 @@ services:
     container_name: notification-service
     restart: always
     depends_on:
-      - config
+      config:
+        condition: service_healthy
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       MONGODB_PASSWORD: $MONGODB_PASSWORD
