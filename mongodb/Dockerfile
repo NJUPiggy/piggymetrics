@@ -1,4 +1,4 @@
-FROM mongo:3
+FROM mongo:3.7
 
 ADD init.sh /init.sh
 ADD ./dump /
