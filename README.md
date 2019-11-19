@@ -77,6 +77,7 @@ spring:
       retry:
         initial-interval: 30000
         max-interval: 60000
+      fail-fast: true
 ```
 
 ##### With Spring Cloud Config, you can change app configuration dynamically. 
