@@ -33,6 +33,14 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+            <version>6.5.0</version>
+        </dependency>
+    </dependencies>
+
     <modules>
         <module>config</module>
         <module>registry</module>
