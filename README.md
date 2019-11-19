@@ -76,7 +76,7 @@ spring:
       uri: http://config:8888
       retry:
         initial-interval: 30000
-        max-interval: 30000
+        max-interval: 60000
 ```
 
 ##### With Spring Cloud Config, you can change app configuration dynamically. 

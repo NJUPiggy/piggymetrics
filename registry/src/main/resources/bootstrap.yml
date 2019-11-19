@@ -6,7 +6,7 @@ spring:
       uri: http://config:8888
       retry:
         initial-interval: 30000
-        max-interval: 30000
+        max-interval: 60000
       password: ${CONFIG_SERVICE_PASSWORD}
       username: user
 
