@@ -12,16 +12,3 @@ spring:
 
 server:
   port: 8888
-
-management:
-  endpoint:
-    prometheus:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: info, health, prometheus
-  server:
-    servlet:
-      context-path: /
-    port: 9091

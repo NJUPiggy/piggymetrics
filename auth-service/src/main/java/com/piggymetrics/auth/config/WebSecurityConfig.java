@@ -23,10 +23,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-                .authorizeRequests()
+            .authorizeRequests()
                 .antMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
+            .and()
                 .csrf().disable();
         // @formatter:on
     }

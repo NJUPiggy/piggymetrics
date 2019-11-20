@@ -1,4 +1,4 @@
-package com.piggymetrics.config;
+package com.piggymetrics.notification.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +15,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http
             .authorizeRequests()
-                .anyRequest().permitAll()
+                .antMatchers("/actuator/**").permitAll()
+                .anyRequest().authenticated()
             .and()
                 .csrf().disable();
         // @formatter:on
