@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: config
   cloud:
     config:
       server:
@@ -6,13 +8,6 @@ spring:
           search-locations: classpath:/shared
   profiles:
      active: native
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://registry:8761/eureka/
 
 server:
   port: 8888
