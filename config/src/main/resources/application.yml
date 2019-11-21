@@ -6,9 +6,13 @@ spring:
           search-locations: classpath:/shared
   profiles:
      active: native
-  security:
-    user:
-      password: ${CONFIG_SERVICE_PASSWORD}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/
 
 server:
   port: 8888

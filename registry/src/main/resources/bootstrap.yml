@@ -8,8 +8,7 @@ spring:
         initial-interval: 30000
         max-interval: 60000
       fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
-      username: user
+
   mvc:
     async:
       request-timeout: 35000
